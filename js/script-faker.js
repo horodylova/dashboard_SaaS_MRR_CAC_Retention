@@ -69,5 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (earningsChangeElement) {
             earningsChangeElement.textContent = `+${growthPercent}%`;
         }
+        
+        if (typeof initCharts === 'function') {
+            initCharts();
+        }
     }
 });

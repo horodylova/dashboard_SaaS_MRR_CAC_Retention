@@ -55,49 +55,102 @@ document.querySelectorAll('.sidebar-link').forEach(link => {
 
 
 function initCharts() {
-    createChart("revenueChart", {
-        type: "line",
+    const revenueChartConfig = {
+        type: "bar",
         data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            labels: window.saasMetricsData ? window.saasMetricsData.labels.slice(0, 12) : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             datasets: [
                 {
-                    label: "Revenue3",
-                    data: [753, 291, 847, 502, 134, 921, 678, 435, 998, 210, 567, 89],
+                    label: "Monthly Recurring Revenue",
+                    data: window.saasMetricsData ? window.saasMetricsData.mrr.slice(0, 12) : [753, 291, 847, 502, 134, 921, 678, 435, 998, 210, 567, 89],
+                    backgroundColor: "#88B267",
                     borderColor: "#88B267",
-                    backgroundColor: "#EEF3E9",
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.4,
+                    borderWidth: 1,
+                    order: 2
                 },
                 {
-                    label: "Revenue2",
-                    data: [1523, 1876, 1345, 1789, 1102, 1934, 1428, 1657, 1982, 1275, 1740, 1890],
-                    borderColor: "#F39C12",
-                    backgroundColor: "#F9F5EE",
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.4,
-                },
-                {
-                    label: "Revenue1",
-                    data: [2734, 2890, 2456, 2987, 2156, 2765, 2932, 2345, 2876, 2098, 2645, 2990],
+                    label: "Annual Recurring Revenue",
+                    data: window.saasMetricsData ? window.saasMetricsData.arr.slice(0, 12).map(val => val / 12) : [753, 291, 847, 502, 134, 921, 678, 435, 998, 210, 567, 89],
                     borderColor: "#65A1CB",
                     backgroundColor: "#E1F0FA",
                     borderWidth: 2,
-                    fill: true,
+                    type: "line",
+                    fill: false,
                     tension: 0.4,
-                },
+                    yAxisID: 'y1',
+                    order: 1
+                }
             ],
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
+            plugins: { 
+                legend: { display: true, position: "top" },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const datasetIndex = context.datasetIndex;
+                            const value = context.raw;
+                            
+                            if (datasetIndex === 1) { // ARR dataset
+                                return "Annual: $" + (value * 12).toLocaleString();
+                            }
+                            return "Monthly: $" + value.toLocaleString();
+                        }
+                    }
+                }
+            },
             scales: {
-                y: { beginAtZero: true },
+                y: { 
+                    beginAtZero: true,
+                    suggestedMax: 10000,
+                    ticks: {
+                        callback: function(value) {
+                            return "$" + value.toLocaleString();
+                        },
+                        stepSize: 1000
+                    },
+                    title: {
+                        display: true,
+                        text: 'Monthly Revenue'
+                    }
+                },
+                y1: {
+                    position: 'right',
+                    beginAtZero: true,
+                    suggestedMax: 10000,
+                    ticks: {
+                        callback: function(value) {
+                            return "$" + value.toLocaleString();
+                        },
+                        stepSize: 1000
+                    },
+                    title: {
+                        display: true,
+                        text: 'Monthly Average (ARR/12)'
+                    },
+                    grid: {
+                        drawOnChartArea: false
+                    }
+                },
                 x: { grid: { display: false } },
             },
         },
+    };
+
+    createChart("revenueChart", revenueChartConfig);
+    
+    // Add event listeners for dropdown items
+    document.querySelectorAll('.dropdown-menu .dropdown-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const period = this.getAttribute('data-period');
+            const dropdownButton = document.getElementById('revenueDropdown');
+            dropdownButton.textContent = this.textContent;
+            
+            updateRevenueChart(period);
+        });
     });
 
     createChart("ageChart", {
@@ -205,3 +258,52 @@ function initQuantitySpinner() {
       });
     });
   }
+
+
+function updateRevenueChart(period) {
+    if (!window.saasMetricsData) return;
+    
+    const revenueChart = document.getElementById('revenueChart').chart;
+    if (!revenueChart) return;
+    
+    let labels = [];
+    let mrrData = [];
+    let arrData = [];
+    
+    if (period === '2024') {
+        // Filter data for 2024 only
+        const year2024Data = window.saasMetricsData.labels
+            .map((label, index) => ({ 
+                label, 
+                mrr: window.saasMetricsData.mrr[index],
+                arr: window.saasMetricsData.arr[index]
+            }))
+            .filter(item => item.label.includes('2024'));
+        
+        labels = year2024Data.map(item => item.label.split(' ')[0]); // Just month name
+        mrrData = year2024Data.map(item => item.mrr);
+        arrData = year2024Data.map(item => item.arr.map(val => val / 12));
+    } else {
+        // Default to showing all data or implement other period filters
+        labels = window.saasMetricsData.labels.slice(0, 12);
+        mrrData = window.saasMetricsData.mrr.slice(0, 12);
+        arrData = window.saasMetricsData.arr.slice(0, 12).map(val => val / 12);
+    }
+    
+    revenueChart.data.labels = labels;
+    revenueChart.data.datasets[0].data = mrrData;
+    revenueChart.data.datasets[1].data = arrData;
+    
+    // Adjust y-axis scale based on actual data
+    const maxMRR = Math.max(...mrrData);
+    const maxARR = Math.max(...arrData);
+    const maxValue = Math.max(maxMRR, maxARR);
+    
+    // Set both axes to have similar scale for better comparison
+    const suggestedMax = Math.ceil(maxValue * 1.2 / 1000) * 1000;
+    
+    revenueChart.options.scales.y.suggestedMax = suggestedMax;
+    revenueChart.options.scales.y1.suggestedMax = suggestedMax;
+    
+    revenueChart.update();
+}
