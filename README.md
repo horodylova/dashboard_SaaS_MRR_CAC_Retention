@@ -1,6 +1,8 @@
-# SaaS Analytics Dashboard
-## Overview
-This analytics dashboard is a powerful tool for monitoring and analyzing key performance indicators (KPIs) of your SaaS business. Designed to be integrated into your website's admin panel, it provides clear visualization of critical sales and revenue metrics in real-time.
+#SaaS Analytics Dashboard
+
+##Overview
+
+This analytics dashboard is a powerful tool for monitoring and analyzing key performance indicators (KPIs) of your SaaS business. Designed to be integrated into your website's admin panel, it provides clear visualization of critical sales and customer retention metrics in real-time.
 
 ## Key Features
 ### Critical SaaS Metrics Monitoring
