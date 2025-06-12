@@ -38,26 +38,3 @@ export function initSidebarListeners() {
         });
     });
 }
-
-export function initProductSliders() {
-    var thumb_slider = new Swiper(".product-thumbnail-slider", {
-        slidesPerView: 3,
-        spaceBetween: 20,
-        autoplay: true,
-        direction: "vertical",
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-    });
-
-    var large_slider = new Swiper(".product-large-slider", {
-        slidesPerView: 1,
-        autoplay: true,
-        spaceBetween: 0,
-        effect: 'fade',
-        thumbs: {
-            swiper: thumb_slider,
-        },
-    });
-}

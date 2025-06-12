@@ -1,13 +1,13 @@
 import { createChart, chartConfigs } from './utils/charts.js';
-import { initQuantitySpinner, initSidebarListeners, initProductSliders } from './utils/ui.js';
+import { initSidebarListeners } from './utils/ui.js';
 import { initRevenueChart } from './utils/revenue.js';
+import { initPdfExport } from './utils/pdf-export.js';
 
 document.addEventListener('DOMContentLoaded', function () {
-    initQuantitySpinner();
     initSidebarListeners();
-    initProductSliders();
     
     initCharts();
+    initPdfExport();
 });
 
 function initCharts() {

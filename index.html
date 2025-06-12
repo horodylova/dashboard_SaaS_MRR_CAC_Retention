@@ -25,6 +25,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
         rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 </head>
 
@@ -55,8 +57,11 @@
                 <button class="btn btn-sm p-0" id="sidebarToggle">
                     <iconify-icon icon="mdi:hamburger-menu-back" width="24" height="24"></iconify-icon>
                 </button>
-
                 
+                <button id="downloadPdfBtn" class="btn btn-sm btn-primary ms-auto">
+                    <iconify-icon icon="mdi:file-pdf" width="20" height="20" class="me-1"></iconify-icon>
+                    Download PDF
+                </button>
             </div>
         </nav>
 

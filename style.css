@@ -1,49 +1,3 @@
-/*
-Theme Name: Dashlite - Bootstrap 5 HTML/CSS Admin Dashboard
-Theme URI: https://templatesjungle.com/
-Author: TemplatesJungle
-Author URI: https://templatesjungle.com/
-Description: dashlite is specially designed product packaged for Solar Energy by TemplatesJungle.
-Version: 1.1
-*/
-
-/*--------------------------------------------------------------
-This is main CSS file that contains custom style rules used in this template
---------------------------------------------------------------*/
-
-/*------------------------------------*\
-    Table of contents
-\*------------------------------------*/
-
-/*------------------------------------------------
-
-CSS STRUCTURE:
-
-1. VARIABLES
-
-2. GENERAL TYPOGRAPHY
-  2.1 General Styles
-
-3. CONTENT ELEMENTS
-  - Iconify
-  - Form
-  - Pagination
-- Accordian
-- Form
-
-4. SITE STRUCTURE
-  4.1 Sidebar
-  4.2 Chart-specific
-  4.3 Home Page
-
-5. PAGES STYLE
-  5.1 Product Detail page
-  
-
-  
-/*--------------------------------------------------------------
-/** 1. VARIABLES
---------------------------------------------------------------*/
 
 :root {
   --primary-color: #212529;
@@ -81,9 +35,6 @@ CSS STRUCTURE:
   --topbar-height: 60px;
 }
 
-/*----------------------------------------------*/
-/* 2 GENERAL TYPOGRAPHY
-/*----------------------------------------------*/
 
 /* 2.1 General Styles
 /*----------------------------------------------*/
@@ -376,8 +327,6 @@ input:not(checked)~label {
   color: rgb(60, 33, 33);
 }
 
-/* End Radio inputs */
-
 
 /* Start Checkbox inputs */
 input[type=checkbox]:checked~ul {
@@ -424,9 +373,6 @@ ul li label:hover {
   width: 105px;
 }
 
-/* End Menu */
-
-
 /* 4.2 Chart-specific styles 
 ------------------------------------------------------------- */
 .chart-container {
@@ -470,17 +416,6 @@ canvas {
   padding: 1.5rem;
 }
 
-.table-responsive {
-  border-radius: 0.5rem;
-  overflow: hidden;
-}
-
-.table th {
-  background-color: #f8f9fa;
-  border-top: none;
-  font-weight: 600;
-  color: var(--secondary-color);
-}
 
 .status-badge {
   padding: 0.35rem 0.75rem;
@@ -529,30 +464,3 @@ canvas {
   }
 }
 
-
-/*----------------------------------------------*/
-/* 5 PAGES STYLE */
-/*----------------------------------------------*/
-
-/* 5.1 Product Detail Page
-/*----------------------------------------------*/
-.product-thumbnail-slider {
-  height: 540px;
-}
-
-/* product-info */
-.rating-container .rating svg {
-  color: var(--bs-yellow);
-}
-
-.product-quantity .input-group button.btn-number {
-  width: 100%;
-  height: 100%;
-}
-
-/* product-tabs */
-.product-tabs .nav-tabs .nav-item.show .nav-link,
-.product-tabs .nav-tabs .nav-link:hover,
-.product-tabs .nav-tabs .nav-link.active {
-  color: var(--bs-dark);
-}
