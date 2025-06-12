@@ -12,8 +12,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function initCharts() {
     initRevenueChart();
-    
-    createChart("ageChart", chartConfigs.getAgeChartConfig());
-    createChart("genderChart", chartConfigs.getGenderChartConfig());
-    createChart("discountChart", chartConfigs.getDiscountChartConfig());
 }
