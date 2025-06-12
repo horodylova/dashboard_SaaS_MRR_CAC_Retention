@@ -13,19 +13,14 @@
     <meta name="keywords" content="Admin Dashboard">
     <meta name="description" content="Dashlite is a Bootstrap 5 HTML/CSS Admin Dashboard">
 
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <!-- Iconify -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Faker.js -->
     <script src="https://cdn.jsdelivr.net/npm/@faker-js/faker@8.0.2/dist/faker.min.js"></script>
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
@@ -34,10 +29,9 @@
 </head>
 
 <body>
-    <!-- Sidebar -->
     <div id="sidebar" class="d-flex flex-column flex-shrink-0 text-white">
         <div class="p-3 d-flex align-items-center justify-content-between">
-            <img src="images/main-logo.png" class="img-fluid">
+            <!-- <img src="images/main-logo.png" class="img-fluid"> -->
             <button class="btn btn-sm d-block d-lg-none" id="sidebarclose">
                 <iconify-icon icon="mdi:hamburger-menu-back" class="text-white" width="24" height="24"></iconify-icon>
             </button>
@@ -55,34 +49,18 @@
         </ul>
     </div>
 
-    <!-- Main Content -->
     <div id="content">
-        <!-- Topbar -->
         <nav id="topbar" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
             <div class="container-fluid p-lg-4">
                 <button class="btn btn-sm p-0" id="sidebarToggle">
                     <iconify-icon icon="mdi:hamburger-menu-back" width="24" height="24"></iconify-icon>
                 </button>
 
-                <div class="d-flex align-items-center">
-                    <!-- Search -->
-                    <div class="me-3 position-relative">
-                        <iconify-icon icon="material-symbols:search" width="20" height="20"
-                            class="position-absolute top-50 start-0 translate-middle-y ms-2"></iconify-icon>
-                        <input type="text" class="form-control ps-4 shadow-none" placeholder="Search..."
-                            style="width: 120px;">
-                    </div>   
-                </div>
+                
             </div>
         </nav>
 
-        <!-- Main Content Area -->
         <div class="container-fluid px-lg-4">
-
-            <div class="py-4">
-                <h5 class="mb-0">Hello World, Welcome!</h5>
-                <p class="mb-0 text-muted d-none d-md-block">Show your day very happy with us.</p>
-            </div>
 
             <!-- Stats Cards -->
             <div class="row">
@@ -109,8 +87,8 @@
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <p class="text-muted text-uppercase mb-2">orders</p>
-                                <h3 class="display-6 fw-normal">$22,500</h3>
-                                <h6 class="change text-danger fs-4">-44%</h6>
+                                <h3 class="display-6 fw-normal" id="totalOrders">$22,500</h3>
+                                <h6 class="change text-danger fs-4" id="ordersChange">-44%</h6>
                                 <a href="#" class="">View all orders <span><iconify-icon icon="mdi-light:arrow-right"
                                             width="24" height="24" style="vertical-align: top;"></iconify-icon></span>
                                 </a>
@@ -127,8 +105,8 @@
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <p class="text-muted text-uppercase mb-2">customers</p>
-                                <h3 class="display-6 fw-normal">$12,240</h3>
-                                <h6 class="change text-success fs-4">+57%</h6>
+                                <h3 class="display-6 fw-normal" id="totalCustomers">$12,240</h3>
+                                <h6 class="change text-success fs-4" id="customersChange">+57%</h6>
                                 <a href="#" class="">View Customers <span><iconify-icon icon="mdi-light:arrow-right"
                                             width="24" height="24"
                                             style="vertical-align: top;"></iconify-icon></span></a>
@@ -145,8 +123,8 @@
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <p class="text-muted text-uppercase mb-2">Balance</p>
-                                <h3 class="display-6 fw-normal">$10,640</h3>
-                                <h6 class="change text-black-50 fs-4">0%</h6>
+                                <h3 class="display-6 fw-normal" id="totalBalance">$10,640</h3>
+                                <h6 class="change text-black-50 fs-4" id="balanceChange">0%</h6>
                                 <a href="#" class="">Withdraw <span><iconify-icon icon="mdi-light:arrow-right"
                                             width="24" height="24"
                                             style="vertical-align: top;"></iconify-icon></span></a>
@@ -175,7 +153,6 @@
                             <li><a class="dropdown-item" href="#" data-period="month">This Month</a></li>
                             <li><a class="dropdown-item" href="#" data-period="year">This Year</a></li>
                             <li><a class="dropdown-item" href="#" data-period="2024">2024</a></li>
-                            <li><a class="dropdown-item" href="#" data-period="2025">2025</a></li>
                         </ul>
                     </div>
                 </div>
@@ -185,28 +162,28 @@
                             <div
                                 class="border rounded-2 d-flex justify-content-between align-items-center d-lg-block p-3 mb-2 mb-lg-0">
                                 <p class="text-muted text-uppercase m-0">orders</p>
-                                <h3 class="display-6 fw-normal m-0">8,000</h3>
+                                <h3 class="display-6 fw-normal m-0" id="revenueOrders">8,000</h3>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div
                                 class="border rounded-2 d-flex justify-content-between align-items-center d-lg-block p-3 mb-2 mb-lg-0">
                                 <p class="text-muted text-uppercase m-0">Earnings</p>
-                                <h3 class="display-6 fw-normal m-0">$6,111</h3>
+                                <h3 class="display-6 fw-normal m-0" id="revenueEarnings">$6,111</h3>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div
                                 class="border rounded-2 d-flex justify-content-between align-items-center d-lg-block p-3 mb-2 mb-lg-0">
                                 <p class="text-muted text-uppercase m-0">refunds</p>
-                                <h3 class="display-6 fw-normal m-0">$9,000</h3>
+                                <h3 class="display-6 fw-normal m-0" id="revenueRefunds">$9,000</h3>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div
                                 class="border rounded-2 d-flex justify-content-between align-items-center d-lg-block p-3 mb-2 mb-lg-0">
                                 <p class="text-muted text-uppercase m-0">convertion rate</p>
-                                <h3 class="display-6 fw-normal m-0">21%</h3>
+                                <h3 class="display-6 fw-normal m-0" id="revenueConversion">21%</h3>
                             </div>
                         </div>
                     </div>
@@ -217,813 +194,13 @@
                 </div>
             </div>
 
-            <!-- Sales By Location, Age & Gender -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card" style="height: 400px;">
-                        <div class="card-header d-flex justify-content-between">
-                            <h5 class="mb-0">Sales By Location</h5>
-                            <button class="btn btn-sm btn-light ">
-                                Export report
-                            </button>
-                        </div>
-                        <div class="card-body mb-4">
-                            <div>
-                                <div class="d-flex justify-content-between mt-3">
-                                    <p class="mb-2">USA</p>
-                                    <p class="mb-2">70%</p>
-                                </div>
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" aria-label="USA" style="width: 70%;"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="d-flex justify-content-between mt-3">
-                                    <p class="mb-2">United Kingdom</p>
-                                    <p class="mb-2">30%</p>
-                                </div>
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" aria-label="USA" style="width: 30%;"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="d-flex justify-content-between mt-3">
-                                    <p class="mb-2">Australia</p>
-                                    <p class="mb-2">65%</p>
-                                </div>
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" aria-label="USA" style="width: 65%;"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="d-flex justify-content-between mt-3">
-                                    <p class="mb-2">India</p>
-                                    <p class="mb-2">55%</p>
-                                </div>
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" aria-label="USA" style="width: 55%;"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="d-flex justify-content-between mt-3">
-                                    <p class="mb-2">Others</p>
-                                    <p class="mb-2">10%</p>
-                                </div>
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" aria-label="USA" style="width: 10%;"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card" style="height: 400px;">
-                        <div class="card-header d-flex justify-content-between">
-                            <h5 class="mb-0">Sales By Age</h5>
-                            <button class="btn btn-sm btn-light ">
-                                Export report
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container mt-3" style="height: 260px;">
-                                <canvas id="ageChart"></canvas>
-                            </div>
-                            <!-- <div class="chart-container">
-                  <canvas id="ageChart"></canvas>
-                </div> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card" style="height: 400px;">
-                        <div class="card-header">
-                            <h5 class="mb-0">Sales By Gender</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container  mt-3" style="height: 260px;">
-                                <canvas id="genderChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Best Selling Items and Top Sellers -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Best Selling Items</h5>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-light dropdown-toggle" type="button"
-                                    id="bestSellingDropdown" data-bs-toggle="dropdown">
-                                    All Categories
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#">All Categories</a></li>
-                                    <li><a class="dropdown-item" href="#">Electronics</a></li>
-                                    <li><a class="dropdown-item" href="#">Clothing</a></li>
-                                    <li><a class="dropdown-item" href="#">Furniture</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Orders</th>
-                                            <th>Stock</th>
-                                            <th>Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product1.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <span class="fw-semibold">Glovering Flashlight</span>
-                                                </div>
-                                            </td>
-                                            <td>$22</td>
-                                            <td>$20</td>
-                                            <td>201</td>
-                                            <td>$2,053</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product2.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <span class="fw-semibold">Skyline Backpack</span>
-                                                </div>
-                                            </td>
-                                            <td>$22</td>
-                                            <td>$20</td>
-                                            <td class="text-danger">No</td>
-                                            <td>$2,053</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product3.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <span class="fw-semibold">Solaris Power Bank</span>
-                                                </div>
-                                            </td>
-                                            <td>$22</td>
-                                            <td>$20</td>
-                                            <td>150</td>
-                                            <td>$2,053</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product4.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <span class="fw-semibold">SmartSync Eurbeds</span>
-                                                </div>
-                                            </td>
-                                            <td>$22</td>
-                                            <td>$20</td>
-                                            <td>85</td>
-                                            <td>$2,053</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product5.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <span class="fw-semibold">SnapShot Camera</span>
-                                                </div>
-                                            </td>
-                                            <td>$22</td>
-                                            <td>$20</td>
-                                            <td class="text-danger">No</td>
-                                            <td>$2,053</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product6.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <span class="fw-semibold">TechGrip Phone</span>
-                                                </div>
-                                            </td>
-                                            <td>$22</td>
-                                            <td>$20</td>
-                                            <td>143</td>
-                                            <td>$2,053</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="text-muted">Showing 6 out of 50 Results</span>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item active" aria-current="page"><a class="page-link "
-                                                href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Top Sellers</h5>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-light dropdown-toggle" type="button"
-                                    id="bestSellingDropdown" data-bs-toggle="dropdown">
-                                    All Categories
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#">All Categories</a></li>
-                                    <li><a class="dropdown-item" href="#">Electronics</a></li>
-                                    <li><a class="dropdown-item" href="#">Clothing</a></li>
-                                    <li><a class="dropdown-item" href="#">Furniture</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Store</th>
-                                            <th>Classification</th>
-                                            <th>Stock</th>
-                                            <th>Amount</th>
-                                            <th>%</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/store1.jpg" alt="Product" class="product-img me-2">
-                                                    <span class="fw-semibold">Henery Store</span>
-                                                </div>
-                                            </td>
-                                            <td>Clothing</td>
-                                            <td>201</td>
-                                            <td>$2,053</td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="progress progress-thin w-100 me-2">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: 40%"></div>
-                                                    </div>
-                                                    <span>40%</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/store2.jpg" alt="Product" class="product-img me-2">
-                                                    <span class="fw-semibold">Gravelor Instant Hughes</span>
-                                                </div>
-                                            </td>
-                                            <td>Silver</td>
-                                            <td>201</td>
-                                            <td>$2,053</td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="progress progress-thin w-100 me-2">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: 55%"></div>
-                                                    </div>
-                                                    <span>55%</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/store3.jpg" alt="Product" class="product-img me-2">
-                                                    <span class="fw-semibold">Whimsical Haven Ann Bennett</span>
-                                                </div>
-                                            </td>
-                                            <td>Furniture</td>
-                                            <td>201</td>
-                                            <td>$2,053</td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="progress progress-thin w-100 me-2">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: 12%"></div>
-                                                    </div>
-                                                    <span>12%</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/store4.jpg" alt="Product" class="product-img me-2">
-                                                    <span class="fw-semibold">Mystical Mercantile James Richards</span>
-                                                </div>
-                                            </td>
-                                            <td>Bag</td>
-                                            <td>201</td>
-                                            <td>$2,053</td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="progress progress-thin w-100 me-2">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: 10%"></div>
-                                                    </div>
-                                                    <span>10%</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/store5.jpg" alt="Product" class="product-img me-2">
-                                                    <span class="fw-semibold">Henery Store</span>
-                                                </div>
-                                            </td>
-                                            <td>Clothing</td>
-                                            <td>201</td>
-                                            <td>$2,053</td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="progress progress-thin w-100 me-2">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: 40%"></div>
-                                                    </div>
-                                                    <span>40%</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/store6.jpg" alt="Product" class="product-img me-2">
-                                                    <span class="fw-semibold">Gravelor Instant Hughes</span>
-                                                </div>
-                                            </td>
-                                            <td>Silver</td>
-                                            <td>201</td>
-                                            <td>$2,053</td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="progress progress-thin w-100 me-2">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: 55%"></div>
-                                                    </div>
-                                                    <span>55%</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="text-muted">Showing 6 out of 50 Results</span>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item active" aria-current="page"><a class="page-link "
-                                                href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Order and Discount Product Sales -->
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Recent Orders</h5>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-light dropdown-toggle" type="button"
-                                    id="bestSellingDropdown" data-bs-toggle="dropdown">
-                                    All Categories
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#">All Categories</a></li>
-                                    <li><a class="dropdown-item" href="#">Electronics</a></li>
-                                    <li><a class="dropdown-item" href="#">Clothing</a></li>
-                                    <li><a class="dropdown-item" href="#">Furniture</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Item</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product3.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <span class="fw-semibold">Solaris Power Bank</span>
-                                                </div>
-                                            </td>
-                                            <td>x4</td>
-                                            <td>$66</td>
-                                            <td>$2,053</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product4.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <span class="fw-semibold">SmartSync Eurbeds</span>
-                                                </div>
-                                            </td>
-                                            <td>x3</td>
-                                            <td>$86</td>
-                                            <td>$2,053</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product5.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <span class="fw-semibold">SnapShot Camera</span>
-                                                </div>
-                                            </td>
-                                            <td>x3</td>
-                                            <td>$170</td>
-                                            <td>$2,053</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product6.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <span class="fw-semibold">TechGrip Phone</span>
-                                                </div>
-                                            </td>
-                                            <td>x2</td>
-                                            <td>$180</td>
-                                            <td>$2,053</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="text-muted">Showing 6 out of 50 Results</span>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item active" aria-current="page"><a class="page-link "
-                                                href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Discount Product Sales</h5>
-                            <div class="d-flex">
-                                <div class="dropdown me-2">
-                                    <button class="btn btn-sm btn-light dropdown-toggle" type="button"
-                                        id="changeByDropdown" data-bs-toggle="dropdown">
-                                        Change by: All
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="#">All</a></li>
-                                        <li><a class="dropdown-item" href="#">This Week</a></li>
-                                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    </ul>
-                                </div>
-                                <div class="dropdown me-2">
-                                    <button class="btn btn-sm btn-light dropdown-toggle" type="button"
-                                        id="statusDropdown" data-bs-toggle="dropdown">
-                                        Status: All
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="#">All</a></li>
-                                        <li><a class="dropdown-item" href="#">Active</a></li>
-                                        <li><a class="dropdown-item" href="#">Inactive</a></li>
-                                    </ul>
-                                </div>
-                                <button class="btn btn-sm btn-light">
-                                    View Stock Items
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h3 class="mb-0">$8,001 <span class="text-success fs-5">+63%</span></h3>
-                                <span class="text-muted">TOTAL SALES</span>
-                            </div>
-                            <div class="chart-container">
-                                <canvas id="discountChart" style="height: 300px;"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product Delivery and Stock Report -->
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between">
-                            <h5 class="mb-0">Product Delivery</h5>
-                            <button class="btn btn-sm btn-light ">
-                                Order Details
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Item</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product5.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <div>
-                                                        <div><span class="fw-semibold fs-5">Solaris Power Bank</span>
-                                                        </div>
-                                                        <small class="text-muted">Furniture</small>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div>To <span class="fw-semibold">Michael Brown</span></div>
-                                                    <span class="text-success fw-semibold fs-5">Delivered</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product6.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <div>
-                                                        <div><span class="fw-semibold fs-5">SmartSync Earbuds</span>
-                                                        </div>
-                                                        <small class="text-muted">Bags</small>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div>To <span class="fw-semibold">Anna Marie</span></div>
-                                                    <span class="text-warning fw-semibold fs-5">Shipping</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="images/product2.jpg" alt="Product"
-                                                        class="product-img me-2">
-                                                    <div>
-                                                        <div><span class="fw-semibold fs-5">TechGrip Phone</span></div>
-                                                        <small class="text-muted">Electronics</small>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div>To <span class="fw-semibold">Kevin Byran</span></div>
-                                                    <span class="text-info fw-semibold fs-5">Confirmed</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Stock Report</h5>
-                            <div class="d-flex">
-                                <div class="dropdown me-2">
-                                    <button class="btn btn-sm btn-light dropdown-toggle" type="button"
-                                        id="changeByDropdown" data-bs-toggle="dropdown">
-                                        Change by: All
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="#">All</a></li>
-                                        <li><a class="dropdown-item" href="#">This Week</a></li>
-                                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    </ul>
-                                </div>
-                                <div class="dropdown me-2">
-                                    <button class="btn btn-sm btn-light dropdown-toggle" type="button"
-                                        id="statusDropdown" data-bs-toggle="dropdown">
-                                        Status: All
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="#">All</a></li>
-                                        <li><a class="dropdown-item" href="#">Active</a></li>
-                                        <li><a class="dropdown-item" href="#">Inactive</a></li>
-                                    </ul>
-                                </div>
-                                <button class="btn btn-sm btn-light">
-                                    View Stock Items
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Item</th>
-                                            <th>Item ID</th>
-                                            <th>Date Added</th>
-                                            <th>Price</th>
-                                            <th>Status</th>
-                                            <th>Qyt</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="fw-semibold">Glovering Flashlight</span>
-                                                </div>
-                                            </td>
-                                            <td>GH77-22</td>
-                                            <td>22 Feb, 2023</td>
-                                            <td>$2,051</td>
-                                            <td class="text-success">In Stock</td>
-                                            <td>90 pcs</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="fw-semibold">Skyline Backpack</span>
-                                                </div>
-                                            </td>
-                                            <td>AK990-2</td>
-                                            <td>22 Feb, 2023</td>
-                                            <td>$2,051</td>
-                                            <td class="text-warning">Low Stock</td>
-                                            <td>3 pcs</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="fw-semibold">SmartSync Earbuds</span>
-                                                </div>
-                                            </td>
-                                            <td>HP89-AA</td>
-                                            <td>22 Feb, 2023</td>
-                                            <td>$2,051</td>
-                                            <td class="text-danger">Out of stock</td>
-                                            <td>0 pcs</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="fw-semibold">GlowGrip Flashlight</span>
-                                                </div>
-                                            </td>
-                                            <td>IOYB-A2</td>
-                                            <td>22 Feb, 2023</td>
-                                            <td>$2,051</td>
-                                            <td class="text-success">In Stock</td>
-                                            <td>90 pcs</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="fw-semibold">Glovering Flashlight</span>
-                                                </div>
-                                            </td>
-                                            <td>GH77-22</td>
-                                            <td>22 Feb, 2023</td>
-                                            <td>$2,051</td>
-                                            <td class="text-success">In Stock</td>
-                                            <td>90 pcs</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="fw-semibold">Skyline Backpack</span>
-                                                </div>
-                                            </td>
-                                            <td>AK990-2</td>
-                                            <td>22 Feb, 2023</td>
-                                            <td>$2,051</td>
-                                            <td class="text-warning">Low Stock</td>
-                                            <td>3 pcs</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="text-muted">Showing 6 out of 50 Results</span>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item active" aria-current="page"><a class="page-link "
-                                                href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+          
         </div>
-
-        <!-- Footer -->
-        <footer class="container-fluid bg-white ">
-            <footer class="row align-items-center py-4">
-                <div class="col-md-6 ">
-                    <p class="m-0">© DashLite - Admin Dashboard </p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="m-0" class="">HTML Website Template By :<a href="https://templatesjungle.com/"
-                            class="text-decoration-underline" target="_blank">TemplatesJungle</a></p>
-                </div>
-            </footer>
-        </footer>
     </div>
 
-    <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="js/script-faker.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="module" src="js/script-faker.js"></script>
+    <script type="module" src="js/main.js"></script>
     <script src="https://code.iconify.design/3/3.0.1/iconify.min.js"></script>
 
 </body>
