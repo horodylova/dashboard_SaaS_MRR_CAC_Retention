@@ -386,7 +386,7 @@ export function updateRevenueChart(period = 'all', revenueChart) {
             if (value === null) return 
             
             if (datasetIndex === 1) {
-                return "Hourly ARR: $" + value.toLocaleString();
+                return "Hourly ARR: $" + (value * 12).toLocaleString();
             }
             return "Hourly MRR: $" + value.toLocaleString();
         };
@@ -398,7 +398,7 @@ export function updateRevenueChart(period = 'all', revenueChart) {
             if (value === null) return "No data";
             
             if (datasetIndex === 1) {
-                return "Daily ARR: $" + value.toLocaleString();
+                return "Daily ARR: $" + (value * 12).toLocaleString();
             }
             return "Daily MRR: $" + value.toLocaleString();
         };
