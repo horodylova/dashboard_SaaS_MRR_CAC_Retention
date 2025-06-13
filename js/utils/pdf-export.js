@@ -43,29 +43,96 @@ export async function exportToPdf() {
             currentY = margin;
         }
         
-        const revenueSection = document.querySelector('.card');
-        if (revenueSection) {
-            pdf.setFontSize(14);
-            pdf.text("Revenue Data", margin, currentY);
-            currentY += 20;
-            
-            const canvas = await html2canvas(revenueSection, {
+        
+        const dropdownButton = document.getElementById('revenueDropdown');
+        const originalPeriodText = dropdownButton.textContent.trim();
+        
+        const revenueChart = document.getElementById('revenueChart');
+        
+        const periodItems = document.querySelectorAll('.dropdown-menu .dropdown-item');
+        
+        const periods = [
+            { id: 'today', text: 'Today' },
+            { id: 'week', text: 'This Week' },
+            { id: 'month', text: 'This Month' },
+            { id: 'year', text: 'This Year' },
+            { id: '2024', text: '2024' }
+        ];
+    
+        const updateChartWithPeriod = (periodId) => {
+            const periodItem = Array.from(periodItems).find(item => item.getAttribute('data-period') === periodId);
+            if (periodItem) {
+                // Симулируем клик на элементе периода
+                const event = new Event('click');
+                event.preventDefault = () => {};
+                periodItem.dispatchEvent(event);
+            }
+        };
+    
+        const captureCurrentChart = async () => {
+            const chartContainer = document.querySelector('.chart-container');
+            const canvas = await html2canvas(chartContainer, {
                 scale: 2,
                 useCORS: true,
                 logging: false
             });
+            return canvas.toDataURL('image/png');
+        };
+        
+        for (const period of periods) {
+            updateChartWithPeriod(period.id);
             
-            const imgData = canvas.toDataURL('image/png');
-            const imgWidth = contentWidth;
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            await new Promise(resolve => setTimeout(resolve, 300));
             
-            if (currentY + imgHeight > pageHeight - margin) {
+            if (period !== periods[0]) {
                 pdf.addPage();
                 currentY = margin;
             }
             
+            pdf.setFontSize(14);
+            pdf.text(`Revenue Data (${period.text})`, margin, currentY);
+            currentY += 20;
+            
+            const imgData = await captureCurrentChart();
+            
+            const chartContainer = document.querySelector('.chart-container');
+            const imgWidth = contentWidth;
+            const imgHeight = (chartContainer.offsetHeight * imgWidth) / chartContainer.offsetWidth;
+            
             pdf.addImage(imgData, 'PNG', margin, currentY, imgWidth, imgHeight);
             currentY += imgHeight + 20;
+            
+            if (currentY + 100 > pageHeight - margin) {
+                pdf.addPage();
+                currentY = margin;
+            }
+            
+            const revenueStats = document.querySelector('.card-body .row');
+            if (revenueStats) {
+                pdf.setFontSize(12);
+                pdf.text(`Revenue Statistics (${period.text})`, margin, currentY);
+                currentY += 20;
+                
+                const canvas = await html2canvas(revenueStats, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                });
+                
+                const statsImgData = canvas.toDataURL('image/png');
+                const statsImgWidth = contentWidth;
+                const statsImgHeight = (canvas.height * statsImgWidth) / canvas.width;
+                
+                pdf.addImage(statsImgData, 'PNG', margin, currentY, statsImgWidth, statsImgHeight);
+                currentY += statsImgHeight + 30;
+            }
+        }
+        
+        const originalPeriodItem = Array.from(periodItems).find(item => item.textContent.trim() === originalPeriodText);
+        if (originalPeriodItem) {
+            const event = new Event('click');
+            event.preventDefault = () => {};
+            originalPeriodItem.dispatchEvent(event);
         }
         
         if (window.saasMetricsData) {
