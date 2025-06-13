@@ -21,6 +21,7 @@ export function updateRevenueChart(period = 'all', revenueChart) {
     const currentDate = new Date();
     const currentHour = currentDate.getHours();
     const currentDay = currentDate.getDay();
+    const currentDayOfMonth = currentDate.getDate();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
     
@@ -51,7 +52,7 @@ export function updateRevenueChart(period = 'all', revenueChart) {
         const hourlyData = [];
         const baseValue = Math.floor(Math.random() * 300) + 100;
         
-        for (let hour = 0; hour < 24; hour++) {
+        for (let hour = 0; hour <= currentHour; hour++) {
             let hourFactor = 1;
             
             if (hour >= 9 && hour <= 17) {
@@ -119,7 +120,7 @@ export function updateRevenueChart(period = 'all', revenueChart) {
         const dailyData = [];
         const baseValue = Math.floor(Math.random() * 1000) + 500;
         
-        for (let day = 0; day < 7; day++) {
+        for (let day = 0; day <= currentDay; day++) {
             let dayFactor = 1;
             
             if (day >= 1 && day <= 5) {
@@ -138,10 +139,18 @@ export function updateRevenueChart(period = 'all', revenueChart) {
             });
         }
         
-        mrrData = dailyData.map(d => d.mrr);
-        arrData = dailyData.map(d => d.arr / 12);
+        for (let day = currentDay + 1; day < 7; day++) {
+            dailyData.push({
+                day,
+                mrr: null,
+                arr: null
+            });
+        }
         
-        const weeklyTotal = mrrData.reduce((sum, val) => sum + val, 0);
+        mrrData = dailyData.map(d => d.mrr);
+        arrData = dailyData.map(d => d.arr ? d.arr / 12 : null);
+        
+        const weeklyTotal = mrrData.filter(val => val !== null).reduce((sum, val) => sum + val, 0);
         totalOrders = Math.round(weeklyTotal / 9);
         totalEarnings = Math.round(weeklyTotal);
         totalRefunds = Math.round(weeklyTotal * 0.08);
@@ -189,6 +198,15 @@ export function updateRevenueChart(period = 'all', revenueChart) {
             const dayOfWeek = date.getDay();
             let dayFactor = 1;
             
+            if (day > currentDayOfMonth) {
+                dailyData.push({
+                    day,
+                    mrr: null,
+                    arr: null
+                });
+                continue;
+            }
+            
             if (dayOfWeek === 0 || dayOfWeek === 6) {
                 dayFactor = 0.6 + Math.random() * 0.4;
             } else {
@@ -206,9 +224,9 @@ export function updateRevenueChart(period = 'all', revenueChart) {
         }
         
         mrrData = dailyData.map(d => d.mrr);
-        arrData = dailyData.map(d => d.arr / 12);
+        arrData = dailyData.map(d => d.arr ? d.arr / 12 : null);
         
-        const monthlyTotal = mrrData.reduce((sum, val) => sum + val, 0);
+        const monthlyTotal = mrrData.filter(val => val !== null).reduce((sum, val) => sum + val, 0);
         totalOrders = Math.round(monthlyTotal / 8);
         totalEarnings = Math.round(monthlyTotal);
         totalRefunds = Math.round(monthlyTotal * 0.12);
@@ -249,25 +267,27 @@ export function updateRevenueChart(period = 'all', revenueChart) {
         const yearFilter = period === 'year' ? currentYear : 2024;
         filteredData = allData.filter(d => d.date.getFullYear() === yearFilter);
         
-        const yearlyMRR = filteredData.reduce((sum, item) => sum + item.mrr, 0);
-        totalOrders = Math.round(yearlyMRR / 8);
-        totalEarnings = Math.round(yearlyMRR);
-        totalRefunds = Math.round(yearlyMRR * 0.15);
-        conversionRate = 21 + Math.round(Math.random() * 4);
-        
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         labels = months;
         
         mrrData = Array(12).fill(null);
         arrData = Array(12).fill(null);
         
+        const maxMonth = period === 'year' ? currentMonth : 11;
+        
         filteredData.forEach(item => {
             const monthIndex = months.indexOf(item.shortLabel);
-            if (monthIndex !== -1) {
+            if (monthIndex !== -1 && monthIndex <= maxMonth) {
                 mrrData[monthIndex] = item.mrr;
                 arrData[monthIndex] = item.arr / 12;
             }
         });
+        
+        const yearlyMRR = mrrData.filter(val => val !== null).reduce((sum, val) => sum + val, 0);
+        totalOrders = Math.round(yearlyMRR / 8);
+        totalEarnings = Math.round(yearlyMRR);
+        totalRefunds = Math.round(yearlyMRR * 0.15);
+        conversionRate = 21 + Math.round(Math.random() * 4);
         
         revenueChart.config.type = 'bar';
         revenueChart.data.datasets[0].type = 'bar';
